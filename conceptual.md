@@ -25,8 +25,10 @@ Answer the following questions below:
 - What are some ways to decide which code to test?
 
 - What does `RETURNING` do in SQL? When would you use it?
+When used with Express, `RETURNING` retrieves values from an SQL query that the program may need to store or return. This can be used when a SELECT statement selects several columns, but only some are needed for a return.
 
 - What are some differences between Web Sockets and HTTP?
+Websockets are a smaller protocol compared to HTTP that stays connected and often used to update the browser. Compared to websockets, HTTP is stateless and has a lot of headers. 
 
 - Did you prefer using Flask over Express? Why or why not (there is no right
   answer here --- we want to see how you think about technology)?
