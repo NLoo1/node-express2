@@ -1,10 +1,16 @@
-/** Database setup for jobly. */
+const { Client } = require("pg");
+const { DB_USERNAME, DB_PASSWORD, DB_URI } = require("./config");
 
-const { Client } = require('pg');
-const { DB_URI } = require('./config');
+let db;
 
-const client = new Client(DB_URI);
+db = new Client({
+  user: DB_USERNAME,
+  host: 'localhost',
+  password: DB_PASSWORD,
+  database: DB_URI
+});
 
-client.connect();
 
-module.exports = client;
+db.connect();
+
+module.exports = db;

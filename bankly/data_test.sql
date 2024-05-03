@@ -1,8 +1,8 @@
 -- Added database creation
 DROP DATABASE bankly IF EXISTS;
-CREATE DATABASE bankly;
+CREATE DATABASE bankly_test;
 
-\connect bankly
+\connect bankly_test
 
 CREATE TABLE users (
     username text PRIMARY KEY,
@@ -16,4 +16,4 @@ CREATE TABLE users (
 
 -- Added seed
 INSERT INTO users (username, first_name, last_name, email, phone, password) VALUES 
-("NLoo", "Nick", "Loo", "Nick@Loo.com", "1234567890", "password");
+("test", "first", "last", "test@test.com", "1234567890", "password");
