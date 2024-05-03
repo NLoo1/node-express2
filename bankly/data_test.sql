@@ -16,4 +16,4 @@ CREATE TABLE users (
 
 -- Added seed
 INSERT INTO users (username, first_name, last_name, email, phone, password) VALUES 
-("test", "first", "last", "test@test.com", "1234567890", "password");
+('test', 'first', 'last', 'test@test.com', '1234567890', 'password');
