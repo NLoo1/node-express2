@@ -54,7 +54,10 @@ function authUser(req, res, next) {
     }
     return next();
   } catch (err) {
-    err.status = 401;
+    // Why do we need to manually set error status?
+    // If token cannot be decoded, this is not an Unauthorized issue
+
+    // err.status = 401;
     return next(err);
   }
 } // end

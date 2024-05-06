@@ -66,9 +66,14 @@ class User {
 
     const user = result.rows[0];
 
+    console.log(user)
+    console.log(await bcrypt.compare(password, user.password))
     if (user && (await bcrypt.compare(password, user.password))) {
       return user;
-    } else {
+
+    } 
+    // Should resolve to else if user not found or if unvalid
+    else {
       throw new ExpressError('Cannot authenticate', 401);
     }
   }
@@ -77,19 +82,27 @@ class User {
    *
    * [{username, first_name, last_name, email, phone}, ...]
    *
+   * Authentication: logged in
    * */
 
   static async getAll(username, password) {
-    const result = await db.query(
-      `SELECT username,
-                first_name,
-                last_name,
-                email,
-                phone
-            FROM users 
-            ORDER BY username`
-    );
-    return result.rows;
+    try{
+      this.authenticate(username, password)
+      const result = await db.query(
+        `SELECT username,
+                  first_name,
+                  last_name,
+                  email,
+                  phone
+              FROM users 
+              ORDER BY username`
+      );
+      return result.rows;
+    } catch(err){
+      return next(err)
+    }
+
+    
   }
 
   /** Returns user info: {username, first_name, last_name, email, phone}

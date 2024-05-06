@@ -1,5 +1,5 @@
 -- Added database creation
-DROP DATABASE bankly IF EXISTS;
+DROP DATABASE IF EXISTS bankly_test ;
 CREATE DATABASE bankly_test;
 
 \connect bankly_test

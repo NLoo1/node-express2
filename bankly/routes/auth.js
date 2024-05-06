@@ -33,7 +33,7 @@ router.post('/register', async function(req, res, next) {
  *
  *  If incorrect username/password given, should raise 401.
  *
- */
+ */ 
 
 router.post('/login', async function(req, res, next) {
   try {

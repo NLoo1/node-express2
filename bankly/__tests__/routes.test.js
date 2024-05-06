@@ -1,3 +1,7 @@
+
+// const dotenvConfig = { path: process.env.NODE_ENV ? ".env." + process.env.NODE_ENV : ".env" }
+// require("dotenv").config(dotenvConfig)
+
 // Set ENV VAR to test before we load anything, so our app's config will use
 // testing settings
 
@@ -9,7 +13,10 @@ const db = require("../db");
 const bcrypt = require("bcrypt");
 const createToken = require("../helpers/createToken");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("../config");
+const { DB_USERNAME } = require("../config")
+
+console.log("PLEASE")
+console.log(DB_USERNAME)
 
 // tokens for our sample users
 const tokens = {};
@@ -49,6 +56,8 @@ describe("POST /auth/register", function() {
         phone: "1233211221"
       });
     expect(response.statusCode).toBe(201);
+
+    // console.log(response.body)
     expect(response.body).toEqual({ token: expect.any(String) });
 
     let { username, admin } = jwt.verify(response.body.token, SECRET_KEY);
@@ -164,6 +173,7 @@ describe("PATCH /users/[username]", function() {
     expect(response.statusCode).toBe(401);
   });
 
+  // If token is not sent, will send 401 Unauthorized
   test("should return 404 if cannot find", async function() {
     const response = await request(app)
       .patch("/users/not-a-user")
@@ -181,7 +191,7 @@ describe("DELETE /users/[username]", function() {
   test("should deny access if not admin", async function() {
     const response = await request(app)
       .delete("/users/u1")
-      .send({ _token: tokens.u1 });
+      .send({ _token: tokens.u1});
     expect(response.statusCode).toBe(401);
   });
 
