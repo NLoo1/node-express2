@@ -6,6 +6,7 @@ const { SECRET_KEY } = require('../config');
 /** Authorization Middleware: Requires user is logged in. */
 
 function requireLogin(req, res, next) {
+  // console.log(req.curr_username)
   try {
     if (req.curr_username) {
       return next();
@@ -47,8 +48,11 @@ function requireAdmin(req, res, next) {
 function authUser(req, res, next) {
   try {
     const token = req.body._token || req.query._token;
+    console.log(token)
     if (token) {
       let payload = jwt.decode(token);
+      console.log(token)
+      console.log(payload)
       req.curr_username = payload.username;
       req.curr_admin = payload.admin;
     }

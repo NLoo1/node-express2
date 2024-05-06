@@ -51,30 +51,33 @@ class User {
    * */
 
   static async authenticate(username, password) {
-    const result = await db.query(
-      `SELECT username,
-                password,
-                first_name,
-                last_name,
-                email,
-                phone,
-                admin
-            FROM users 
-            WHERE username = $1`,
-      [username]
-    );
-
-    const user = result.rows[0];
-
-    console.log(user)
-    console.log(await bcrypt.compare(password, user.password))
-    if (user && (await bcrypt.compare(password, user.password))) {
-      return user;
-
-    } 
-    // Should resolve to else if user not found or if unvalid
-    else {
-      throw new ExpressError('Cannot authenticate', 401);
+    try{
+      const result = await db.query(
+        `SELECT username,
+                  password,
+                  first_name,
+                  last_name,
+                  email,
+                  phone,
+                  admin
+              FROM users 
+              WHERE username = $1`,
+        [username]
+      );
+  
+      const user = result.rows[0];
+  
+      // console.log(await bcrypt.compare(password, user.password))
+      if (user && (await bcrypt.compare(password, user.password))) {
+        return user;
+      } 
+      // Should resolve to else if user not found or if unvalid
+      else {
+        throw new ExpressError('Cannot authenticate', 401);
+      }
+    }
+    catch(err){
+      return err
     }
   }
 
@@ -87,7 +90,7 @@ class User {
 
   static async getAll(username, password) {
     try{
-      this.authenticate(username, password)
+      // this.authenticate(username, password)
       const result = await db.query(
         `SELECT username,
                   first_name,

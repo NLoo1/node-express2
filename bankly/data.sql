@@ -13,7 +13,3 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT NOT NULL,
     admin BOOLEAN DEFAULT false
 );
-
--- Added seed
-INSERT INTO users (username, first_name, last_name, email, phone, password) VALUES 
-('NLoo', 'Nick', 'Loo', 'Nick@Loo.com', '1234567890', 'password');
