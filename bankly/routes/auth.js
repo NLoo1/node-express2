@@ -4,6 +4,7 @@ const User = require('../models/user');
 const express = require('express');
 const router = express.Router();
 const createTokenForUser = require('../helpers/createToken');
+const ExpressError = require('../helpers/expressError');
 
 
 /** Register user; return token.
@@ -19,7 +20,6 @@ router.post('/register', async function(req, res, next) {
     const { username, password, first_name, last_name, email, phone } = req.body;
     let user = await User.register({username, password, first_name, last_name, email, phone});
     const token = createTokenForUser(username, user.admin);
-    req.curr_username = username
     return res.status(201).json({ token });
   } catch (err) {
     return next(err);
@@ -36,13 +36,17 @@ router.post('/register', async function(req, res, next) {
  *
  */ 
 
+// Doesn't check if user is valid :(
 router.post('/login', async function(req, res, next) {
   try {
     const { username, password } = req.body;
-    let user = User.authenticate(username, password);
-    const token = createTokenForUser(username, user.admin);
-    req.curr_username = username
-    return res.json({ token });
+    let user = await User.authenticate(username, password);
+    if(user.username){
+      const token = createTokenForUser(username, user.admin);
+      req.curr_username = username
+      return res.json({ token });
+    }
+    throw new ExpressError("Cannot find user", 401)
   } catch (err) {
     return next(err);
   }

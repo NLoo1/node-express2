@@ -23,7 +23,9 @@ class User {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    // console.log(password)
+    // console.log(BCRYPT_WORK_FACTOR)
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR || 10);
 
     const result = await db.query(
       `INSERT INTO users 

@@ -6,7 +6,6 @@ const { SECRET_KEY } = require('../config');
 /** Authorization Middleware: Requires user is logged in. */
 
 function requireLogin(req, res, next) {
-  // console.log(req.curr_username)
   try {
     if (req.curr_username) {
       return next();
