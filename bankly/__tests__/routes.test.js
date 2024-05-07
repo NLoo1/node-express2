@@ -156,6 +156,14 @@ describe("PATCH /users/[username]", function() {
     });
   });
 
+  // FIXES BUG 5
+  test('should throw error for bad JSON', async function(){
+    const response = await request(app)
+      .patch("/users/u1")
+      .send({ _token: tokens.u1, doodoo: true, peepee: "yes"});
+    expect(response.statusCode).toBe(401);
+  })
+
   test("should disallowing patching not-allowed-fields", async function() {
     const response = await request(app)
       .patch("/users/u1")
@@ -193,6 +201,7 @@ describe("DELETE /users/[username]", function() {
     expect(response.body).toEqual({ message: "deleted" });
   });
 });
+
 
 afterEach(async function() {
   await db.query("DELETE FROM users");

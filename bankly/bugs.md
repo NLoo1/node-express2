@@ -6,4 +6,5 @@
 - BUG #1: authUser() doesn't handle bad tokens
 - BUG #2: Added error handling for createToken helper in case of bad secret key
 - BUG #3 + #4: user model getAll() and get() does not check for logged in. Changed and added tests for authenticate().
+- BUG #5: no JSON validation for user patch
   

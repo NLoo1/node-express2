@@ -73,6 +73,7 @@ router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
       throw new ExpressError('Only  that user or admin can edit a user.', 401);
     }
 
+    // Potential for bad JSON here - validate
     // get fields to change; remove token so we don't try to change it
     let fields = { ...req.body };
     delete fields._token;
