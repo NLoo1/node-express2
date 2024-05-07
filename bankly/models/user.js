@@ -88,9 +88,8 @@ class User {
    * Authentication: logged in
    * */
 
-  static async getAll(username, password) {
+  static async getAll() {
     try{
-      // this.authenticate(username, password)
       const result = await db.query(
         `SELECT username,
                   first_name,
