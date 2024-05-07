@@ -66,8 +66,6 @@ class User {
       );
   
       const user = result.rows[0];
-  
-      // console.log(await bcrypt.compare(password, user.password))
       if (user && (await bcrypt.compare(password, user.password))) {
         return user;
       } 

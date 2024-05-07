@@ -1,22 +1,12 @@
-
-// const dotenvConfig = { path: process.env.NODE_ENV ? ".env." + process.env.NODE_ENV : ".env" }
-// require("dotenv").config(dotenvConfig)
-
-// Set ENV VAR to test before we load anything, so our app's config will use
-// testing settings
-
 process.env.NODE_ENV = "test";
 
 const app = require("../app");
 const request = require("supertest");
+const { SECRET_KEY, DB_USERNAME, DB_PASSWORD, BCRYPT_WORK_FACTOR } = require("../config")
 const db = require("../db");
 const bcrypt = require("bcrypt");
 const createToken = require("../helpers/createToken");
 const jwt = require("jsonwebtoken");
-const { DB_USERNAME } = require("../config")
-
-console.log("PLEASE")
-console.log(DB_USERNAME)
 
 // tokens for our sample users
 const tokens = {};

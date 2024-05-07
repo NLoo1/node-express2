@@ -9,12 +9,6 @@
     "seed": "psql -f data.sql",
     "start": "node server.js"
   },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "config.js"
-    ]
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
